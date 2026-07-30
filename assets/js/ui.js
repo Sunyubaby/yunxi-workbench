@@ -5,8 +5,15 @@ window.UI = (function () {
   function init() {
     mask = U.$('#modal-mask'); modal = U.$('#modal');
     mTitle = U.$('#modal-title'); mBody = U.$('#modal-body'); mFoot = U.$('#modal-foot');
-    U.$('#modal-close').onclick = closeModal;
-    mask.addEventListener('click', (e) => { if (e.target === mask) closeModal(); });
+    // 关闭：× 按钮 + 点遮罩层 + ESC 键
+    const closeBtn = U.$('#modal-close');
+    closeBtn.onclick = closeModal;
+    // 加大触控区域：在按钮外包一层透明 padding 区域
+    closeBtn.style.cssText += ';min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;';
+    mask.addEventListener('click', (e) => {
+      // 点击遮罩背景关闭（排除点击弹窗内容区）
+      if (e.target === mask) closeModal();
+    });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !mask.hidden) closeModal(); });
   }
 

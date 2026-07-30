@@ -37,7 +37,7 @@ window.App = (function () {
       return `<button class="nav-item ${n.key === active ? 'active' : ''}" data-key="${n.key}">
         <span class="nav-ico">${n.ico}</span><span>${n.label}</span>${badge}</button>`;
     }).join('');
-    U.$('#nav').querySelectorAll('.nav-item').forEach(b => b.onclick = () => navigate('#/' + b.dataset.key));
+    U.$('#nav').querySelectorAll('.nav-item').forEach(b => b.onclick = () => { closeDrawer(); navigate('#/' + b.dataset.key); });
   }
 
   function render() {
@@ -117,10 +117,16 @@ window.App = (function () {
   }
 
   function maybeDailyPush() {
+    // 不再强制弹窗，改为仅在首次当天给一个轻量提示（用户可点顶部按钮主动查看）
     const last = localStorage.getItem('yunxi_lastpush');
     if (last !== U.todayISO()) {
       localStorage.setItem('yunxi_lastpush', U.todayISO());
-      setTimeout(openTodayTasks, 600);
+      // 延迟 1s 后给个轻提示，不阻塞页面
+      setTimeout(() => {
+        const rem = Dashboard.collectReminders().filter(r => U.daysUntil(r.date) <= 7);
+        if (rem.length) U.toast(`今日有 ${rem.length} 项临近提醒，点击「今日任务」查看`, 'warn');
+        else U.toast('今日打卡已就绪，点击「今日任务」查看', 'ok');
+      }, 1000);
     }
   }
 
@@ -159,8 +165,8 @@ window.App = (function () {
     const next = new Date(now); next.setHours(8, 0, 0, 0);
     if (next <= now) next.setDate(next.getDate() + 1);
     setTimeout(() => {
-      notify('云兮工作台 · 今日任务', '点击打开查看今日打卡与临近提醒');
-      openTodayTasks();
+      notify('云兮工作台 · 今日任务', '点击顶部「今日任务」查看今日打卡与临近提醒');
+      // 仅发通知，不再强制弹窗，避免干扰用户正在浏览的页面
       scheduleDaily();
     }, next - now);
   }
@@ -180,10 +186,32 @@ window.App = (function () {
     });
   }
 
+  /* ---- 移动端抽屉导航 ---- */
+  function openDrawer() {
+    const s = U.$('#sidebar'), o = U.$('#sidebar-overlay');
+    if (!s || !o) return;
+    o.hidden = false;
+    requestAnimationFrame(() => { s.classList.add('open'); o.classList.add('show'); });
+  }
+  function closeDrawer() {
+    const s = U.$('#sidebar'), o = U.$('#sidebar-overlay');
+    if (!s || !o) return;
+    s.classList.remove('open'); o.classList.remove('show');
+    setTimeout(() => { if (!s.classList.contains('open')) o.hidden = true; }, 300);
+  }
+  function bindDrawer() {
+    const menu = U.$('#btn-menu'), ov = U.$('#sidebar-overlay');
+    if (menu) menu.onclick = openDrawer;
+    if (ov) ov.onclick = closeDrawer;
+    // 视口放大到桌面尺寸时自动收起抽屉，避免错位
+    window.addEventListener('resize', () => { if (window.innerWidth > 760) closeDrawer(); });
+  }
+
   function start() {
     DB.init();
     UI.init();
     bindTopbar();
+    bindDrawer();
     window.addEventListener('hashchange', render);
     render();
     maybeDailyPush();

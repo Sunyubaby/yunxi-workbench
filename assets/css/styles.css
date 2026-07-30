@@ -76,10 +76,16 @@ input, select, textarea { font-family: inherit; font-size: 14px; }
   padding: 18px 26px; background: var(--bg-soft);
   border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20;
 }
-.topbar-left h1 { font-size: 19px; font-weight: 800; }
+.topbar-left { display:flex; align-items:center; gap:10px; min-width:0; }
+.topbar-left h1 { font-size: 19px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .topbar-date { font-size: 12px; color: var(--ink-faint); margin-top: 2px; }
 .topbar-right { display: flex; gap: 10px; }
 .content { padding: 22px 26px 60px; }
+
+/* 汉堡按钮：桌面隐藏，移动端抽屉用 */
+.btn-menu { display: none; font-size: 20px; padding: 8px 12px; }
+/* 侧边抽屉遮罩 */
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(45,35,65,.45); z-index: 90; }
 
 /* ===== 按钮 ===== */
 .btn-primary, .btn-ghost, .btn-danger, .btn-soft {
@@ -111,8 +117,47 @@ input, select, textarea { font-family: inherit; font-size: 14px; }
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-4 { grid-template-columns: repeat(4, 1fr); }
+/* 平板：3/4 列退化为 2 列 */
 @media (max-width: 1080px){ .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 760px){ .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } .sidebar{ display:none; } }
+
+/* ===== 移动端 / 小平板：侧边栏抽屉化 + 单列布局 ===== */
+@media (max-width: 760px){
+  .btn-menu { display: inline-flex; }
+  #app { display: block; }
+  .main { min-width: 0; }
+  .sidebar {
+    position: fixed; top: 0; left: 0; height: 100%; width: 82%; max-width: 290px; flex: 0 0 auto;
+    transform: translateX(-100%); transition: transform .28s ease; z-index: 95;
+    box-shadow: 8px 0 34px rgba(80,60,120,.22);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.show { display: block; }
+  .nav-item { padding: 14px 12px; font-size: 15px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; gap: 12px; }
+  .topbar { padding: 12px 14px; align-items: center; }
+  .topbar-left h1 { font-size: 16px; max-width: 52vw; }
+  .topbar-date { display: none; }
+  .topbar-right .btn-primary, .topbar-right .btn-ghost { padding: 9px 12px; font-size: 12.5px; }
+  .content { padding: 16px 14px 56px; }
+  /* 触控目标 ≥44px */
+  .btn-primary, .btn-ghost, .btn-danger, .btn-soft { min-height: 44px; }
+  .nav-item, .subtab { min-height: 44px; }
+  .subtab { padding: 9px 14px; }
+  .modal { width: 100%; max-height: 94vh; border-radius: 16px; }
+  .modal-foot { flex-wrap: wrap; }
+  .modal-foot .btn-primary, .modal-foot .btn-ghost { flex: 1; justify-content: center; }
+  .toast-wrap { left: 14px; right: 14px; top: 14px; }
+  .toast { max-width: none; }
+  /* KPI 行在窄屏换行并均分 */
+  .kpi-row .stat, .kpi-row .mini-stat { flex: 1 1 calc(50% - 10px); }
+}
+/* 超窄屏：隐藏演示数据按钮，保留今日任务 */
+@media (max-width: 520px){
+  #btn-reset-demo { display: none; }
+  .topbar-left h1 { max-width: 46vw; }
+  .card { padding: 14px; }
+}
 
 /* 仪表盘概览统计块 */
 .stat { background: var(--card); border:1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow-s); }

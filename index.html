@@ -13,7 +13,7 @@
 <body>
   <div id="app">
     <!-- 侧边导航 -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <div class="brand">
         <div class="brand-logo">🌸</div>
         <div class="brand-text">
@@ -27,11 +27,13 @@
         <div class="data-note">数据保存在本机浏览器</div>
       </div>
     </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
 
     <!-- 主区域 -->
     <main class="main">
       <header class="topbar">
         <div class="topbar-left">
+          <button class="btn-ghost btn-menu" id="btn-menu" aria-label="菜单">☰</button>
           <h1 id="page-title">首页仪表盘</h1>
           <div class="topbar-date" id="topbar-date"></div>
         </div>
