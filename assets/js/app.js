@@ -208,6 +208,8 @@ window.App = (function () {
   }
 
   function start() {
+    // ★ 双重安全锁：启动瞬间强制关闭弹窗（防止任何路径的自动弹出）
+    const _m = U.$('#modal-mask'); if (_m) _m.hidden = true;
     DB.init();
     UI.init();
     bindTopbar();

@@ -5,6 +5,8 @@ window.UI = (function () {
   function init() {
     mask = U.$('#modal-mask'); modal = U.$('#modal');
     mTitle = U.$('#modal-title'); mBody = U.$('#modal-body'); mFoot = U.$('#modal-foot');
+    // ★ 安全锁：启动时强制关闭弹窗（防止浏览器缓存旧 JS 导致的自动弹出）
+    if (mask) mask.hidden = true;
     // 关闭：× 按钮 + 点遮罩层 + ESC 键
     const closeBtn = U.$('#modal-close');
     closeBtn.onclick = closeModal;
