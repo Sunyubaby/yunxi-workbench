@@ -1,0 +1,17 @@
+{
+  "name": "云兮成长 & 自我提升综合管理台",
+  "short_name": "云兮成长台",
+  "description": "庞云兮专属：育儿管理、个人成长&抖音运营、家庭财务、物资与全周期提醒一体化工作台",
+  "lang": "zh-CN",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f6f4fb",
+  "theme_color": "#b07ce8",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

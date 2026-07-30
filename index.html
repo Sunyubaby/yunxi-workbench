@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>云兮成长 & 自我提升综合管理台</title>
+  <meta name="theme-color" content="#b07ce8" />
+  <link rel="manifest" href="assets/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
+</head>
+<body>
+  <div id="app">
+    <!-- 侧边导航 -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">🌸</div>
+        <div class="brand-text">
+          <div class="brand-title">云兮成长台</div>
+          <div class="brand-sub">成长 & 自我提升</div>
+        </div>
+      </div>
+      <nav class="nav" id="nav"></nav>
+      <div class="sidebar-foot">
+        <button class="btn-ghost" id="btn-notify" title="开启浏览器消息提醒">🔔 开启提醒</button>
+        <div class="data-note">数据保存在本机浏览器</div>
+      </div>
+    </aside>
+
+    <!-- 主区域 -->
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 id="page-title">首页仪表盘</h1>
+          <div class="topbar-date" id="topbar-date"></div>
+        </div>
+        <div class="topbar-right">
+          <button class="btn-primary" id="btn-today-tasks">📋 今日任务</button>
+          <button class="btn-ghost" id="btn-reset-demo" title="清空并写入演示数据">↺ 演示数据</button>
+        </div>
+      </header>
+      <section class="content" id="content"></section>
+    </main>
+  </div>
+
+  <!-- 弹窗容器 -->
+  <div class="modal-mask" id="modal-mask" hidden>
+    <div class="modal" id="modal">
+      <div class="modal-head">
+        <h3 id="modal-title">标题</h3>
+        <button class="modal-close" id="modal-close">×</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-foot" id="modal-foot"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-wrap" id="toast-wrap"></div>
+
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/schema.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+  <script src="assets/js/views.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

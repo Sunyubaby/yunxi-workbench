@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>云兮工作台 · 手机扫码访问</title>
+<style>
+  :root{--p:#b07ce8;--a:#ff9bb3;--ink:#2f2a3a;--f:#a39cb2;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(160deg,#f3eefb,#fff0f4);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;color:var(--ink);}
+  .card{background:#fff;border-radius:22px;box-shadow:0 12px 40px rgba(120,95,170,.18);padding:32px 28px;max-width:420px;width:100%;text-align:center;}
+  .logo{font-size:46px;margin-bottom:8px;}
+  h1{font-size:21px;margin-bottom:4px;}
+  .sub{font-size:13px;color:var(--f);margin-bottom:22px;}
+  .qr-wrap{background:#fff;padding:14px;border-radius:18px;border:1px solid #efeaf8;display:inline-block;margin-bottom:18px;}
+  .qr-wrap img{width:260px;height:260px;display:block;}
+  .tip{font-size:13px;color:var(--f);margin-bottom:18px;line-height:1.6;}
+  .btn{display:inline-block;background:linear-gradient(135deg,var(--p),var(--a));color:#fff;text-decoration:none;padding:13px 26px;border-radius:12px;font-weight:700;font-size:15px;box-shadow:0 6px 16px rgba(176,124,232,.3);}
+  .url{margin-top:18px;font-size:11px;color:var(--f);word-break:break-all;line-height:1.5;background:#faf7ff;padding:10px;border-radius:8px;}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">🌸</div>
+    <h1>云兮成长 & 自我提升管理台</h1>
+    <div class="sub">手机扫码，直接打开使用</div>
+    <div class="qr-wrap"><img src="assets/qr-code.png" alt="二维码"/></div>
+    <div class="tip">微信/支付宝/相机扫一扫均可<br/>打开后点浏览器菜单「添加到主屏幕」即可当 App 用</div>
+    <a class="btn" href="./">立即打开 →</a>
+    <div class="url">https://webview.e2b.gz4.sandbox.cloudstudio.club/?x-cs-sandbox-id=dad5e94f5ea24913b31453bd00339fde&x-cs-sandbox-port=8000</div>
+  </div>
+</body>
+</html>
